@@ -1,0 +1,64 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="{{ destination.name }}" />
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Image src="{{ destination.imageUrl }}" class="w-full h-48 rounded-lg" />
+            <Label text="{{ destination.description }}" class="text-lg my-2" textWrap="true" />
+            
+            <!-- Attractions -->
+            <Label text="Attractions" class="text-xl font-bold mt-4 mb-2" />
+            <ListView items="{{ destination.attractions }}" height="200">
+                <ListView.itemTemplate>
+                    <GridLayout rows="auto" columns="*, auto" class="p-2">
+                        <Label col="0" text="{{ name }}" class="font-semibold" />
+                        <Label col="1" text="{{ '$' + price }}" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Hotels -->
+            <Label text="Hotels" class="text-xl font-bold mt-4 mb-2" />
+            <ListView items="{{ destination.hotels }}" height="200">
+                <ListView.itemTemplate>
+                    <GridLayout rows="auto, auto" columns="*" class="p-2">
+                        <Label row="0" text="{{ name }}" class="font-semibold" />
+                        <Label row="1" text="{{ '$' + pricePerNight + '/night • ' + rating + '★' }}" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Restaurants -->
+            <Label text="Restaurants" class="text-xl font-bold mt-4 mb-2" />
+            <ListView items="{{ destination.restaurants }}" height="200">
+                <ListView.itemTemplate>
+                    <GridLayout rows="auto" columns="*, auto" class="p-2">
+                        <Label col="0" text="{{ name }}" class="font-semibold" />
+                        <Label col="1" text="{{ priceRange + ' • ' + rating + '★' }}" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Local Tips -->
+            <Label text="Local Tips" class="text-xl font-bold mt-4 mb-2" />
+            <ListView items="{{ destination.localTips }}" height="150">
+                <ListView.itemTemplate>
+                    <Label text="{{ $value }}" textWrap="true" class="p-2" />
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Reviews -->
+            <Label text="Reviews" class="text-xl font-bold mt-4 mb-2" />
+            <ListView items="{{ destination.reviews }}" height="200">
+                <ListView.itemTemplate>
+                    <GridLayout rows="auto, auto" columns="*" class="p-2">
+                        <Label row="0" text="{{ rating + '★' }}" class="font-semibold" />
+                        <Label row="1" text="{{ comment }}" textWrap="true" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Add to Itinerary Button -->
+            <Button text="Add to Itinerary" tap="{{ addToItinerary }}" class="bg-blue-500 text-white p-4 rounded-lg mt-4" />
+        </StackLayout>
+    </ScrollView>
+</Page>

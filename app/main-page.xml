@@ -1,0 +1,85 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
+    <ActionBar title="Plan Your Vacation">
+        <ActionItem ios.position="right" android.position="actionBar" 
+                   text="My Trips" tap="{{ showItinerary }}" />
+    </ActionBar>
+    
+    <TabView selectedIndex="{{ selectedTabIndex }}">
+        <!-- Explore Tab -->
+        <TabViewItem title="Explore">
+            <GridLayout rows="auto, *">
+                <SearchBar row="0" hint="Search destinations..." 
+                          text="{{ searchQuery }}" 
+                          submit="{{ onSearch }}" 
+                          class="p-2" />
+                
+                <ListView row="1" items="{{ destinations }}" 
+                         itemTap="{{ onDestinationTap }}" 
+                         class="list-group">
+                    <ListView.itemTemplate>
+                        <GridLayout rows="auto, auto, auto" 
+                                  columns="*, auto" 
+                                  class="p-4 border-b border-gray-200">
+                            <Image row="0" col="0" colSpan="2" 
+                                   src="{{ imageUrl }}" 
+                                   class="w-full h-32 rounded-lg mb-2" />
+                            <Label row="1" col="0" 
+                                   text="{{ name }}" 
+                                   class="text-lg font-bold" />
+                            <Label row="1" col="1" 
+                                   text="{{ 'From $' + estimatedCost }}" 
+                                   class="text-green-600" />
+                            <Label row="2" col="0" colSpan="2" 
+                                   text="{{ description }}" 
+                                   textWrap="true" 
+                                   class="text-sm text-gray-600" />
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+            </GridLayout>
+        </TabViewItem>
+
+        <!-- Map Tab -->
+        <TabViewItem title="Map">
+            <GridLayout>
+                <WebView src="{{ mapUrl }}" />
+            </GridLayout>
+        </TabViewItem>
+
+        <!-- Profile Tab -->
+        <TabViewItem title="Profile">
+            <ScrollView>
+                <StackLayout class="p-4">
+                    <Label text="My Profile" class="text-2xl font-bold mb-4" />
+                    <Image src="{{ userProfile.avatar }}" 
+                           class="w-24 h-24 rounded-full mb-4" />
+                    <Label text="{{ userProfile.name }}" 
+                           class="text-xl mb-2" />
+                    <Label text="{{ userProfile.email }}" 
+                           class="text-gray-600 mb-4" />
+                    
+                    <Button text="Edit Profile" 
+                            tap="{{ editProfile }}" 
+                            class="bg-blue-500 text-white p-4 rounded-lg" />
+                    
+                    <Label text="My Reviews" 
+                           class="text-xl font-bold mt-8 mb-4" />
+                    <ListView items="{{ userProfile.reviews }}" height="300">
+                        <ListView.itemTemplate>
+                            <GridLayout rows="auto, auto" 
+                                      columns="*" 
+                                      class="p-2">
+                                <Label row="0" 
+                                       text="{{ destination }}" 
+                                       class="font-semibold" />
+                                <Label row="1" 
+                                       text="{{ comment }}" 
+                                       textWrap="true" />
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </TabViewItem>
+    </TabView>
+</Page>
